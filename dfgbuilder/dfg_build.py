@@ -9,17 +9,12 @@ from utils import (
     index_to_code_token
 )
 
-PRECOMPILED_LIB_PATH = './my-languages.so' 
-
-
+PRECOMPILED_LIB_PATH = './my-languages.so'
 INPUT_JSONL_FILE = './dataset.jsonl'
 OUTPUT_CSV_FILE = './dfg.csv'
 
 
 def setup_parser_from_precompiled(lib_path):
-    """
-    直接从一个预编译好的库文件中加载语言并返回解析器。
-    """
     if not os.path.exists(lib_path):
         print(f"致命错误: 预编译的语言库文件未找到: {lib_path}")
         print("请确保 SourceP 项目中的 'my-languages.so' 文件与此脚本位于同一目录。")
@@ -34,7 +29,6 @@ def setup_parser_from_precompiled(lib_path):
 
 
 def main():
-    """主执行函数"""
     print("--- 步骤 1: 设置 Tree-sitter 解析器 (从预编译库加载) ---")
    
     parser = setup_parser_from_precompiled(PRECOMPILED_LIB_PATH)

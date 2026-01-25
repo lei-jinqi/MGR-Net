@@ -21,7 +21,6 @@ import sys
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
-# --- 新增：日志功能 ---
 RESULT_DIR = "result"
 if not os.path.exists(RESULT_DIR):
     os.makedirs(RESULT_DIR)

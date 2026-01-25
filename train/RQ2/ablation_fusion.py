@@ -8,7 +8,8 @@ from torch.nn.utils.rnn import pad_sequence
 from torch_geometric.data import Data, Batch
 from torch_geometric.nn import GCNConv, global_mean_pool
 from sklearn.model_selection import StratifiedKFold, train_test_split
-from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score, accuracy_score, average_precision_score
+from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score, accuracy_score, \
+    average_precision_score
 from tqdm import tqdm
 import ast
 import json
@@ -472,8 +473,9 @@ def main():
 
             for epoch in range(config.EPOCHS):
                 train_loss = train_epoch(model, train_loader, optimizer, criterion, device)
-                val_loss, val_auc, val_auc_pr, val_f1, val_p, val_r, val_acc, val_thresh = evaluate(model, val_loader, criterion,
-                                                                                        device)
+                val_loss, val_auc, val_auc_pr, val_f1, val_p, val_r, val_acc, val_thresh = evaluate(model, val_loader,
+                                                                                                    criterion,
+                                                                                                    device)
 
                 if epoch % 5 == 0 or epoch == config.EPOCHS - 1:
                     print(
@@ -493,8 +495,10 @@ def main():
 
             print(f"\n--- {mode} | Fold {fold + 1}/5 | Final Evaluation on Test Set ---")
             model.load_state_dict(torch.load(best_model_path))
-            test_loss, test_auc, test_auc_pr, test_f1, test_p, test_r, test_acc, test_thresh = evaluate(model, test_loader,
-                                                                                           criterion, device)
+            test_loss, test_auc, test_auc_pr, test_f1, test_p, test_r, test_acc, test_thresh = evaluate(model,
+                                                                                                        test_loader,
+                                                                                                        criterion,
+                                                                                                        device)
 
             fold_metrics.append({
                 'AUC': test_auc,
@@ -504,7 +508,8 @@ def main():
                 'Recall': test_r,
                 'Accuracy': test_acc
             })
-            print(f"  Test F1: {test_f1:.4f}, Test Acc: {test_acc:.4f}, Test AUC: {test_auc:.4f}, Test AUC-PR: {test_auc_pr:.4f}")
+            print(
+                f"  Test F1: {test_f1:.4f}, Test Acc: {test_acc:.4f}, Test AUC: {test_auc:.4f}, Test AUC-PR: {test_auc_pr:.4f}")
             os.remove(best_model_path)
 
         df_fold_metrics = pd.DataFrame(fold_metrics)

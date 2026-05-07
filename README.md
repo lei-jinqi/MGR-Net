@@ -1,2 +1,2 @@
 # MGR-Net
-MDR-Net: Multimodal Ponzi Scheme Detection with Graph Refinement
+MGR-Net: Multimodal Fusion Network for Ponzi Scheme Detection Based on Graph Refinement
